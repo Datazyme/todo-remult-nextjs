@@ -13,5 +13,10 @@
     "title": "Take My Pills",
     "completed": true,
     "id": 3
+  },
+  {
+    "title": "Add task functionality",
+    "completed": false,
+    "id": 4
   }
 ]
