@@ -1,0 +1,17 @@
+[
+  {
+    "title": "Take Manhattan",
+    "completed": false,
+    "id": 1
+  },
+  {
+    "title": "Take Berlin",
+    "completed": false,
+    "id": 2
+  },
+  {
+    "title": "Take My Pills",
+    "completed": true,
+    "id": 3
+  }
+]
