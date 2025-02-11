@@ -49,11 +49,49 @@ export default function Home() {
           </input>
           <button>Add</button>
         </form>
-      {tasks.map(task => {
-        return <div key={task.id} className="border-b px-6 gap-2 flex items-center p-2 text-3xl">
-          <input type="checkbox" checked={task.completed} className="w-6 h-6"></input>
-          {task.title}
-        </div>
+      {tasks.map((task) => {
+        //accepts value of task and sets it,if task has same value of current task the replace it with the value we are setting
+        const setTask = (value:Task) => 
+          setTasks(tasks.map((t) => (t === task ? value : t)));
+
+        const setCompleted = async(completed:boolean) =>
+          setTask(await taskRepo.save({...task, completed}));
+
+        //allows user to reaname the task
+        const setTitle = (title: string) => setTask({...task, title});
+
+        const saveTask = async () => {
+          try {
+            setTask(await taskRepo.save(task));
+          } catch (err: any) {
+            alert(err.message);
+          }
+        };
+
+        const deleteTask = async () => {
+          try {
+            await taskRepo.delete(task);
+            setTasks(tasks.filter(t => t !== task))
+          } catch (err:any) {
+            alert(err.message)
+          }
+        }
+        return (
+          <div key={task.id} className="border-b px-6 gap-2 flex items-center p-2 text-3xl">
+           <input 
+              type="checkbox" 
+              checked={task.completed} 
+              className="w-6 h-6"
+              onChange={e => setCompleted(e.target.checked)}
+            />
+            <input
+              value={task.title}
+              onChange={ e => setTitle(e.target.value)}
+              />
+              <button onClick={saveTask}>Save</button>
+              <button onClick={deleteTask}>Delete</button>
+          </div>
+        );
       })}
       </main>
     </div>
