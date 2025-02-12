@@ -1,6 +1,7 @@
 import { remult } from "remult"
 import { Task } from "@/shared/Task"
 import { FormEvent, useEffect, useState } from "react"
+import { TasksController } from "@/shared/TasksController";
 
 //call repository of tasks, covers front and back end
 const taskRepo = remult.repo(Task);
@@ -34,12 +35,10 @@ export default function Home() {
     }
   };
 
+  //This funtion moved to back end because it makes a call from front to back for iteration of each item in array
   const setAllCompleted = async (completed:boolean) => {
-    //iterate all the tasks, brings all the tasks from the backend
-    for (const task of await taskRepo.find()) {
-      //iterates through each task and saves as completed
-      await taskRepo.save({ ...task, completed});
-    }
+    //calls to back end file TaskControler in Shared
+    await TasksController.setAllCompleted(completed);
     //reloads changed task list
     fetchTasks().then(setTasks);
   }
