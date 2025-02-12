@@ -1,6 +1,5 @@
 import { Entity, Fields } from "remult"
 
-
 //To initially allow all CRUD operations for tasks, we set the option allowApiCrud to true.
 @Entity("tasks", {
     allowApiCrud: true
