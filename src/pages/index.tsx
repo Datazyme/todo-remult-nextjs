@@ -40,9 +40,9 @@ export default function Home() {
   return (
     <div className="bg-blue-100 h-screen flex items-center flex-col justify-center text-lg">
       <h1 className="text-violet-600 text-6xl">To Do {tasks.length}</h1>
-      <main className="bg-blue-400 border rounded-lg shadow-lg m-5 w-screen max-w-md">
-        <form onSubmit={addTask}>
-          <input
+      <main className="bg-blue-400 border rounded-lg shadow-lg m-5 w-screen max-w-lg">
+        <form onSubmit={addTask} className="border-b-2 px-6 p-2 flex">
+          <input className="w-full"
           value={newTaskTitle}
           onChange={(e) => setNewTaskTitle(e.target.value)}
           placeholder="What to do?">
@@ -86,6 +86,7 @@ export default function Home() {
             />
             <input
               value={task.title}
+              className="w-full"
               onChange={ e => setTitle(e.target.value)}
               />
               <button onClick={saveTask}>Save</button>
