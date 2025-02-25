@@ -1,10 +1,5 @@
 [
   {
-    "title": "Take Manhattan",
-    "completed": false,
-    "id": 1
-  },
-  {
     "title": "Take Berlin",
     "completed": false,
     "id": 2
@@ -18,5 +13,10 @@
     "title": "Add task functionality",
     "completed": false,
     "id": 4
+  },
+  {
+    "title": "Take Manhattan",
+    "completed": false,
+    "id": 5
   }
 ]

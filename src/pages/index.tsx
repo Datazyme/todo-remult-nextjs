@@ -2,6 +2,7 @@ import { remult } from "remult"
 import { Task } from "@/shared/Task"
 import { FormEvent, useEffect, useState } from "react"
 import { TasksController } from "@/shared/TasksController";
+import { signIn, useSession, signOut } from "next-auth/react";
 
 //call repository of tasks, covers front and back end
 const taskRepo = remult.repo(Task);
@@ -41,16 +42,23 @@ export default function Home() {
     await TasksController.setAllCompleted(completed);
     //reloads changed task list
     fetchTasks().then(setTasks);
-  }
-   
+  };
+
+  const session =  useSession();
 
   useEffect(() => {
-    fetchTasks().then(setTasks);
-  }, [])
+    if (session.status === "unauthenticated") signIn();
+    else fetchTasks().then(setTasks);
+  }, [session]);
+
   return (
     <div className="bg-blue-100 h-screen flex items-center flex-col justify-center text-lg">
       <h1 className="text-violet-600 text-6xl">To Do {tasks.length}</h1>
       <main className="bg-blue-400 border rounded-lg shadow-lg m-5 w-screen max-w-lg">
+        <div className="flex justify-between px-6 p-2 border-b">
+          Hello {session.data?.user?.name}{" "}
+          <button onClick={() => signOut()}>Sign Out</button>
+        </div>
         <form onSubmit={addTask} className="border-b-2 px-6 p-2 flex">
           <input className="w-full"
           value={newTaskTitle}
